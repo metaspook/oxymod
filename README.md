@@ -1,7 +1,28 @@
-# Magisk Module Template
+# OxyMod
+OxyMod is a tool to manipulate OxygenOS and do various modifications.
 
-**Update `README.md` if you want to submit your module to the online repo!** This `README.md` will be shown in a Webview dialog when a user taps your module in Magisk Manager, so make sure to place some information / changelog / notes here.
+## Features
+* OnePlus Call Recorder.
+* HBM (High Brightness Mode).
+* Screen Color Modes: 1. Default | 2. sRGB | 3. Custom | 4. DCI-P3 | 5. Adaptive | 6. Soft
+* More to come...
 
-If you are not familiar with the Markdown syntax, you can start by experimenting on GitHub's online Markdown editor, which will let you preview before publishing. If you need more help, the [Markdown Cheat Sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) will be handy.
+## Requirements
+* OnePlus devices running OxygenOS.
+* [![Magisk](https://img.shields.io/badge/Magisk-17%2B-00B39B.svg?style=flat-square)](https://forum.xda-developers.com/apps/magisk/official-magisk-v7-universal-systemless-t3473445)
+* Terminal Emulator app.
 
-For more information about modules and repos, please check the [official documentation](https://github.com/topjohnwu/Magisk/blob/master/docs/modules.md)
+## Change Log
+### v1.1
+* Adaptive survival loop for 'OnePlus Call recorder
+  service' to prevent killing by system.
+* Added "Refresh" option.
+* Magisk Module Template 17000.
+* Major bug fixes.
+* Minor coding improvments.
+
+### v1.0
+* Initial Release
+
+
+#### [XDA Official thread](https://forum.xda-developers.com/apps/magisk/oxymod-t3791347) || [LICENSE](https://github.com/metaspook/OxyMod/blob/master/LICENSE) || [Source Code](https://github.com/metaspook/OxyMod)
