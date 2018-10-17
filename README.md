@@ -12,6 +12,12 @@ OxyMod is a tool to manipulate OxygenOS and do various modifications.
 * [![Magisk](https://img.shields.io/badge/Magisk-17%2B-00B39B.svg?style=flat-square)](https://forum.xda-developers.com/apps/magisk/official-magisk-v7-universal-systemless-t3473445)
 * Terminal Emulator app.
 
+## Instructions
+1. Flash 'oxymod-vx.x.zip' by C.recovery/Magisk app > Reboot.
+2. Open 'Terminal Emulator' app.
+3. Get root access by type 'su'
+4. Type 'oxy' to open the console.
+
 ## Change Log
 ### v1.1
 * Adaptive survival loop for 'OnePlus Call recorder
@@ -26,4 +32,4 @@ OxyMod is a tool to manipulate OxygenOS and do various modifications.
 
 &nbsp;&nbsp;
 
-[![XDA Official thread](https://img.shields.io/badge/XDA&nbsp;Forum-ff8300.svg?style=flat-square)](https://forum.xda-developers.com/apps/magisk/oxymod-t3791347)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![LICENSE](https://img.shields.io/badge/LICENSE-MIT-0067b2.svg?style=flat-square)](https://github.com/metaspook/OxyMod/blob/master/LICENSE)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![Source Code](https://img.shields.io/badge/Source&nbsp;Code-098900.svg?style=flat-square)](https://github.com/metaspook/OxyMod)
+[![XDA Official thread](https://img.shields.io/badge/XDA&nbsp;Forum-ff8300.svg?style=flat-square)](https://forum.xda-developers.com/apps/magisk/oxymod-t3791347)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![LICENSE](https://img.shields.io/badge/LICENSE-MIT-0067b2.svg?style=flat-square)](https://github.com/metaspook/OxyMod/blob/master/LICENSE)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![Source Code](https://img.shields.io/badge/Source&nbsp;Code-098900.svg?style=flat-square)](https://github.com/metaspook/OxyMod)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![Change Log](https://img.shields.io/badge/Change&nbsp;Log-c902bc.svg?style=flat-square)](https://github.com/metaspook/OxyMod#change-log)
