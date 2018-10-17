@@ -23,6 +23,8 @@ OxyMod is a tool to manipulate OxygenOS and do various modifications.
 
 ### v1.0
 * Initial Release
+
 &nbsp;
 &nbsp;
+
 [![XDA Official thread](https://img.shields.io/badge/XDA&nbsp;Forum-ff8300.svg?style=flat-square)](https://forum.xda-developers.com/apps/magisk/oxymod-t3791347)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![LICENSE](https://img.shields.io/badge/LICENSE-MIT-0067b2.svg?style=flat-square)](https://github.com/metaspook/OxyMod/blob/master/LICENSE)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[![Source Code](https://img.shields.io/badge/Source&nbsp;Code-098900.svg?style=flat-square)](https://github.com/metaspook/OxyMod)
