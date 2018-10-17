@@ -1,4 +1,4 @@
-# OxyMod 📌
+# OxyMod
 OxyMod is a tool to manipulate OxygenOS and do various modifications.
 
 ## 🎈 Features
