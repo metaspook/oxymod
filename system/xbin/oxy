@@ -11,7 +11,7 @@
 
 #~~~~ VARIABLES/ALIAS STAGE 01 ~~~~
 
-export PATH=${PATH}:/su/bin:/su/xbin:/system/bin:/system/xbin:/tmp:/sbin
+export PATH=${PATH}:/system/bin:/system/xbin:/sbin
 SEPINJECT="`which magiskpolicy` --live"
 vn=v1.1
 ON="\e[1;32mON\e[0m"
