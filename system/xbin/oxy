@@ -11,7 +11,7 @@
 
 #~~~~ VARIABLES/ALIAS STAGE 01 ~~~~
 
-export PATH=${PATH}:/system/bin:/system/xbin:/sbin
+export PATH=${PATH}:/system/xbin
 SEPINJECT="`which magiskpolicy` --live"
 vn=v1.1
 ON="\e[1;32mON\e[0m"
@@ -53,6 +53,8 @@ case $1 in
 	-nosrc) echo "[FAIL!] No Source or Target exists."; exit ;;
 	-noors) echo -e "[FAIL!] OpenRecoveryScript not found.\n"; exit ;;
 	-noroot) echo -e "[FAIL!] ${0##*/} should run by root user.\n"; exit ;;
+	-nooneplus) echo -e "[FAIL!] ${0##*/} should run on a OnePlus device.\n"; exit ;;
+	-nooos) echo -e "[FAIL!] ${0##*/} should run from OxygenOS.\n"; exit ;;
 esac
 }
 chkroot(){
@@ -61,6 +63,23 @@ chkroot(){
 	[ "$id" = "0" ] || [ "$id" = "root" ] && ROOT=true
 	[ ! "$ROOT" ] && fnexit -noroot
 }
+chkoneplus(){
+# Checking if OnePlus device.
+	if [ "`settings list global | grep -i oneplus`" ]; then
+		ONEPLUS=true
+	elif [ "`settings list system | grep -i oneplus`" ]; then
+		ONEPLUS=true
+	elif [ "`settings list secure | grep -i oneplus`" ]; then
+		ONEPLUS=true
+	else
+		rm -rf $MODDIR &>/dev/null    #self destruction.
+	fi
+}
+chkoos(){
+# Checking if OxygenOS.
+[ ! "`gerprop | grep -i oxygen`" ] && rm -rf $MODDIR &>/dev/null    #self destruction.
+}
+
 flnum(){ head -1 "$1" | tail -c 2; }
 #read -r firstline < $1
 #echo ${$(head -1 /sys/devices/virtual/graphics/fb0/DCI_P3)##* }
@@ -76,7 +95,7 @@ Version: $vn
 }
 fnscolorval(){
 #Get Screen Color Value.
-SCOLORVAL="$(su -c settings get system screen_color_mode_settings_value &)"
+SCOLORVAL="`settings get system screen_color_mode_settings_value`"
 case $SCOLORVAL in
 2) SCOLORVAL="$SRGB";;
 3) SCOLORVAL="$CUSTOM";;
@@ -145,7 +164,7 @@ sed -i "/$var1scolor/d" $BOOTSCRIPT
 sed -i "/$var2scolor/d" $BOOTSCRIPT;;
 *) sleep 15;;
 esac
-su -c settings put system screen_color_mode_settings_value $VAR
+settings put system screen_color_mode_settings_value $VAR
 }
 
 fnoxyusage1(){
@@ -212,6 +231,8 @@ esac
 #----< CALL CENTER >----#
 #
 chkroot
+chkoneplus
+chkoos
 case $OXY in
 oxy|oxy.sh)
 	allarg="$*"
