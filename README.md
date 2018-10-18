@@ -14,9 +14,11 @@ OxyMod is a tool to manipulate OxygenOS and do various modifications.
 
 ## 🎈 Instructions
 1. Flash 'oxymod-vx.x.zip' by C.recovery/Magisk app > Reboot.
-2. Open 'Terminal Emulator' app.
-3. Get root access by type 'su'
-4. Type 'oxy' to open the console.
+2. In 'Terminal Emulator' Enter following to run OxyMod console.
+```console
+~ $ su
+~ $ oxy
+```
 
 ## 🎈 Change Log
 ### v1.1
