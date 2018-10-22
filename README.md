@@ -21,6 +21,13 @@ OxyMod is a tool to manipulate OxygenOS and do various modifications.
 ```
 
 ## 🎈 Change Log
+### v1.2
+* Major bug fixes.
+* Algorithm improvements (OnePlus Call recorder service).
+* Unsupported device restrictions.
+* Boot survival Call recorder service.
+* Boot survival High Brightness Mode.
+* Boot survival Screen Color Mode.
 ### v1.1
 * Adaptive survival loop for 'OnePlus Call recorder
   service' to prevent killing by system.
@@ -28,7 +35,6 @@ OxyMod is a tool to manipulate OxygenOS and do various modifications.
 * Magisk Module Template 17000.
 * Major bug fixes.
 * Minor coding improvments.
-
 ### v1.0
 * Initial Release
 
