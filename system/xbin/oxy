@@ -32,9 +32,6 @@ DCIP3="\e[1;33mDCI-P3\e[0m"
 CUSTOM="\e[1;33mCustom\e[0m"
 DEFAULT="\e[1;33mDefault\e[0m"
 SRGB="\e[1;33msRGB\e[0m"
-#tm=`date '+%T'`
-#alias #unalias -a #unalias rm #unset
-#MODDIR=${0%/*}
 #~~~~ ALIASES STAGE 01 ~~~~
 # e.g <SetGetGlobal> alias for 'settings' command.
 for X in List Get Put; do
@@ -268,5 +265,7 @@ exit 0
 # echo $VAR > /sys/devices/virtual/graphics/fb0/night_mode
 #read -r firstline < $1
 #echo ${$(head -1 /sys/devices/virtual/graphics/fb0/DCI_P3)##* }
-
+#tm=`date '+%T'`
+#alias #unalias -a #unalias rm #unset
+#MODDIR=${0%/*}
 #grep -m1 "" /sys/devices/virtual/graphics/fb0/DCI_P3 | grep -o 0 &>/dev/null && DCIP3VAL=$OFF
