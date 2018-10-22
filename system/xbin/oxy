@@ -77,7 +77,7 @@ chkoneplus(){
 }
 chkoos(){
 # Checking if OxygenOS.
-[ ! "`gerprop | grep -i oxygen`" ] && rm -rf $MODDIR &>/dev/null    #self destruction.
+[ ! "`getprop | grep -i oxygen`" ] && rm -rf $MODDIR &>/dev/null    #self destruction.
 }
 
 flnum(){ head -1 "$1" | tail -c 2; }
