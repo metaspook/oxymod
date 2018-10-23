@@ -1,5 +1,5 @@
 # OxyMod.
-# Version: 1.2
+# Version: 1.3
 # Written by Metaspook
 # License: <http://opensource.org/licenses/MIT>
 # Copyright (c) 2018 Metaspook.
@@ -11,37 +11,30 @@
 
 #~~~~ VARIABLES STAGE 01 ~~~~
 export PATH=${PATH}:/system/xbin
-SEPINJECT="`which magiskpolicy` --live"
-vn=v1.2
-ON="\e[1;32mON\e[0m"
-OFF="\e[1;31mOFF\e[0m"
-NOT_FOUND="\e[1;33mNot Found!\e[0m"
+vn=v1.3
 MODDIR=/sbin/.core/img/oxymod
 BOOTSCRIPT=$MODDIR/service.sh
 OXY="${0##*/}"
-OXYFULL="$0"
-var1opcallrec="## Enabling OnePlus Call recorder service."
-var2opcallrec="$OXY opcallrec"
-var1hbm="## Enabling High Brightness Mode."
-var2hbm="$OXY hbm"
-var1scolor="## Screen Color Calibration."
-var2scolor="$OXY scolor"
+ON="\e[1;32mON\e[0m"
+OFF="\e[1;31mOFF\e[0m"
+NOT_FOUND="\e[1;33mNot Found!\e[0m"
 ADAPTIVE="\e[1;33mAdaptive\e[0m"
 SOFT="\e[1;33mSoft\e[0m"
 DCIP3="\e[1;33mDCI-P3\e[0m"
 CUSTOM="\e[1;33mCustom\e[0m"
 DEFAULT="\e[1;33mDefault\e[0m"
 SRGB="\e[1;33msRGB\e[0m"
+var1opcallrec="## Enabling OnePlus Call recorder service."
+var2opcallrec="$OXY opcallrec"
+var1hbm="## Enabling High Brightness Mode."
+var2hbm="$OXY hbm"
+var1scolor="## Screen Color Calibration."
+var2scolor="$OXY scolor"
 #~~~~ ALIASES STAGE 01 ~~~~
-# e.g <SetGetGlobal> alias for 'settings' command.
-for X in List Get Put; do
-	for Y in Global System Secure; do
-		alias Set$X$Y="settings $(echo $X $Y | tr '[:upper:]' '[:lower:]')"
-	done
-done
-alias SetGetGlobalOCR='SetGetGlobal op_voice_recording_supported_by_mcc'
-alias SetPutGlobalOCR='SetPutGlobal op_voice_recording_supported_by_mcc'
-alias ocrkill="kill -9 \$(cat $MODDIR/ocrpid &>/dev/null) &>/dev/null"
+alias SetGetGlobalOCR='settings get global op_voice_recording_supported_by_mcc'
+alias SetPutGlobalOCR='settings put global op_voice_recording_supported_by_mcc'
+alias SetGetSystemSCM='settings get system screen_color_mode_settings_value'
+alias SetPutSystemSCM='settings put system screen_color_mode_settings_value'
 alias GetHBM='head -1 /sys/devices/virtual/graphics/fb0/hbm | tail -c 2'
 
 #
@@ -74,50 +67,6 @@ echo -e "
 Version: $vn
 "
 }
-fnscolorval(){
-#Get Screen Color Value.
-SCOLORVAL="`settings get system screen_color_mode_settings_value`"
-case $SCOLORVAL in
-2) SCOLORVAL="$SRGB";;
-3) SCOLORVAL="$CUSTOM";;
-4) SCOLORVAL="$DCIP3";;
-5) SCOLORVAL="$ADAPTIVE";;
-6) SCOLORVAL="$SOFT";;
-*) SCOLORVAL="$DEFAULT";;
-esac
-}
-ocrloop(){
-[ -z $ocrvar ] && ocrvar=0
-if [ "`SetGetGlobalOCR`" -eq 0 ]; then
-SetPutGlobalOCR 1
-[ $ocrvar -gt 0 ] && ((ocrvar--))
-elif [ "`SetGetGlobalOCR`" -eq 1 -a $ocrvar -le 30 ]; then
-((ocrvar++))
-fi
-sleep $ocrvar
-ocrloop
-}
-
-fnopcallrec(){
-## Enabling OnePlus Call recorder service.
-case $1 in
-"$ON")
-sed -i "/$var1opcallrec/d" $BOOTSCRIPT
-sed -i "/$var2opcallrec/d" $BOOTSCRIPT
-kill -9 $(cat $MODDIR/ocrpid &>/dev/null) &>/dev/null
-SetPutGlobalOCR 0;;
-"$OFF")
-sed -i "/$var1opcallrec/d" $BOOTSCRIPT
-sed -i "/$var2opcallrec/d" $BOOTSCRIPT
-echo "$var1opcallrec\n$var2opcallrec" >> $BOOTSCRIPT
-fnopcallrec;;
-*)
-kill -9 $(cat $MODDIR/ocrpid &>/dev/null) &>/dev/null
-ocrloop &
-echo $! > $MODDIR/ocrpid
-sleep 0.1;;
-esac
-}
 fnhbm(){
 ## High Brightness Mode.
 VAR=2
@@ -133,6 +82,49 @@ echo "$var1hbm\n$var2hbm" >> $BOOTSCRIPT;;
 esac
 echo $VAR > /sys/devices/virtual/graphics/fb0/hbm
 }
+ocrkill(){
+if [ -f $MODDIR/ocrpid ]; then
+kill -9 $(cat $MODDIR/ocrpid) &>/dev/null
+rm -f $MODDIR/ocrpid
+SetPutGlobalOCR 0
+fi
+}
+ocrloop(){
+SetPutGlobalOCR 1
+sleep 25
+ocrloop
+}
+fnopcallrec(){
+## Enabling OnePlus Call recorder seocrpid
+case $1 in
+"$ON")
+sed -i "/$var1opcallrec/d" $BOOTSCRIPT
+sed -i "/$var2opcallrec/d" $BOOTSCRIPT
+ocrkill;;
+"$OFF")
+sed -i "/$var1opcallrec/d" $BOOTSCRIPT
+sed -i "/$var2opcallrec/d" $BOOTSCRIPT
+echo "$var1opcallrec\n$var2opcallrec" >> $BOOTSCRIPT
+fnopcallrec;;
+*)
+ocrkill
+ocrloop &
+echo $! > $MODDIR/ocrpid
+sleep 0.1;;
+esac
+}
+fnscolorval(){
+#Get Screen Color Value.
+SCOLORVAL="`SetGetSystemSCM`"
+case $SCOLORVAL in
+2) SCOLORVAL="$SRGB";;
+3) SCOLORVAL="$CUSTOM";;
+4) SCOLORVAL="$DCIP3";;
+5) SCOLORVAL="$ADAPTIVE";;
+6) SCOLORVAL="$SOFT";;
+*) SCOLORVAL="$DEFAULT";;
+esac
+}
 fnscolor(){
 ## Screen Color Calibration.
 [ "$SCOLORVAL" ] && VAR=$1
@@ -146,9 +138,8 @@ sed -i "/$var1scolor/d" $BOOTSCRIPT
 sed -i "/$var2scolor/d" $BOOTSCRIPT;;
 *) sleep 15;;
 esac
-settings put system screen_color_mode_settings_value $VAR
+SetPutSystemSCM $VAR
 }
-
 fnoxyusage1(){
 #Get Screen Color Value.
 fnscolorval
@@ -205,7 +196,6 @@ case $coin00 in
 esac
 }
 
-
 #
 #----< CALL CENTER >----#
 #
@@ -227,45 +217,4 @@ dcip3) fndcip3;;
 hbm) fnhbm;;
 scolor) fnscolor ${*};;
 esac
-
-#unset ORSDIR ORS
-#unalias -a
 exit 0
-
-# settings get system screen_color_mode_settings_value
-
-#NOTES:
-# Using 'Array' or '(command1; command2)' breaks boot-time execution (reason unknown).
-
-
-# Adaptive Mode
-# settings put system screen_color_mode_settings_value 5
-# DCI-P3
-# settings put system screen_color_mode_settings_value 4
-# echo $VAR > /sys/devices/virtual/graphics/fb0/DCI_P3
-# Default
-# settings put system screen_color_mode_settings_value 1 #0
-# sRGB
-# settings put system screen_color_mode_settings_value 2
-# echo $VAR > /sys/devices/virtual/graphics/fb0/SRGB
-# Custom Color
-# settings put system screen_color_mode_settings_value 3
-# OnePlus Mode (Soft)
-# settings put system screen_color_mode_settings_value 6
-# echo $VAR > /sys/devices/virtual/graphics/fb0/oneplus_mode
-# Adobe RGB
-# echo $VAR > /sys/devices/virtual/graphics/fb0/Adobe_RGB
-# High Brightness Mode
-# echo $VAR > /sys/devices/virtual/graphics/fb0/hbm
-# max brightness level = 0
-# 0-->max brightness level 380nit
-# 1-->max brightness level 430nit
-# 2-->HBM Enabled
-# Night Mode
-# echo $VAR > /sys/devices/virtual/graphics/fb0/night_mode
-#read -r firstline < $1
-#echo ${$(head -1 /sys/devices/virtual/graphics/fb0/DCI_P3)##* }
-#tm=`date '+%T'`
-#alias #unalias -a #unalias rm #unset
-#MODDIR=${0%/*}
-#grep -m1 "" /sys/devices/virtual/graphics/fb0/DCI_P3 | grep -o 0 &>/dev/null && DCIP3VAL=$OFF

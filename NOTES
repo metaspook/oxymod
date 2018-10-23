@@ -1,0 +1,45 @@
+#
+#----< NOTES >----#
+# Using 'Array' or '(command1; command2)' breaks boot-time execution (reason unknown).
+
+#
+#----< USABLES >----#
+# e.g <SetGetGlobal> alias for 'settings' command.
+#   for X in List Get Put; do
+#   	for Y in Global System Secure; do
+#   		alias Set$X$Y="settings $(echo $X $Y | tr '[:upper:]' '[:lower:]')"
+#   	done
+#   done
+# SEPINJECT="`which magiskpolicy` --live"
+# read -r firstline < $1
+# tm=`date '+%T'`
+# alias #unalias #set #unset
+# MODDIR=${0%/*}
+# grep -m1 "" /sys/devices/virtual/graphics/fb0/DCI_P3 | grep -o 0 &>/dev/null && DCIP3VAL=$OFF
+# Adaptive Mode
+# settings get system screen_color_mode_settings_value
+# settings put system screen_color_mode_settings_value 5
+# DCI-P3
+# settings put system screen_color_mode_settings_value 4
+# echo $VAR > /sys/devices/virtual/graphics/fb0/DCI_P3
+# Default
+# settings put system screen_color_mode_settings_value 1 #0
+# sRGB
+# settings put system screen_color_mode_settings_value 2
+# echo $VAR > /sys/devices/virtual/graphics/fb0/SRGB
+# Custom Color
+# settings put system screen_color_mode_settings_value 3
+# OnePlus Mode (Soft)
+# settings put system screen_color_mode_settings_value 6
+# echo $VAR > /sys/devices/virtual/graphics/fb0/oneplus_mode
+# Adobe RGB
+# echo $VAR > /sys/devices/virtual/graphics/fb0/Adobe_RGB
+# High Brightness Mode
+# echo $VAR > /sys/devices/virtual/graphics/fb0/hbm
+# max brightness level = 0
+# 0-->max brightness level 380nit
+# 1-->max brightness level 430nit
+# 2-->HBM Enabled
+# Night Mode
+# echo $VAR > /sys/devices/virtual/graphics/fb0/night_mode
+#

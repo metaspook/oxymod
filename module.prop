@@ -1,7 +1,7 @@
 id=oxymod
 name=OxyMod
-version=v1.2
-versionCode=12
+version=v1.3
+versionCode=13
 author=Metaspook
 description=OxygenOS Modification Tool
 minMagisk=17000
