@@ -21,6 +21,12 @@ OxyMod is a tool to manipulate OxygenOS and do various modifications.
 ```
 
 ## 🎈 Change Log
+### v1.3
+* Constant loop to reduce CPU load.
+* Fix issue (OPCall recorder ON/OFF).
+* Fix issue (loop killing).
+* Fix issue ('service.sh').
+* Coding cleanup.
 ### v1.2
 * Major bug fixes.
 * Algorithm improvements (OnePlus Call recorder service).
