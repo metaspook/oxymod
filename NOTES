@@ -63,3 +63,14 @@
 #   fi
 # }
 # sed -i 's/gChannelBondingMode24GHz=0/gChannelBondingMode24GHz=1/g' /system/etc/wifi/WCNSS_qcom_cfg.ini
+# voenabler
+# Add these to 'system.prop'
+# Debug Options
+# persist.dbg.ims_volte_enable=1 
+# persist.dbg.volte_avail_ovr=1 
+# persist.dbg.vt_avail_ovr=1
+# persist.dbg.wfc_avail_ovr=1
+
+# Radio Options
+# persist.radio.data_con_rprt=1
+# persist.radio.calls.on.ims=1
