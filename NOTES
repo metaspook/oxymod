@@ -47,4 +47,19 @@
 # 2-->HBM Enabled
 # Night Mode
 # echo $VAR > /sys/devices/virtual/graphics/fb0/night_mode
-#
+# sysover_partitions(){
+#   if [ -f /system/init.rc ]; then
+#     ROOT=/system_root
+#     REALSYS=/system_root/system
+#   else
+#     REALSYS=/system
+#   fi
+#   if [ -L /system/vendor ]; then
+#     VEN=/vendor
+#     REALVEN=/vendor
+#   else
+#     VEN=/system/vendor
+#     REALVEN=$REALSYS/vendor
+#   fi
+# }
+# sed -i 's/gChannelBondingMode24GHz=0/gChannelBondingMode24GHz=1/g' /system/etc/wifi/WCNSS_qcom_cfg.ini
