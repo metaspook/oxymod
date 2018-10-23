@@ -1,3 +1,8 @@
+# Written by Metaspook
+# License: <http://opensource.org/licenses/MIT>
+# Copyright (c) 2018 Metaspook.
+
+
 #
 #----< NOTES >----#
 # Using 'Array' or '(command1; command2)' breaks boot-time execution (reason unknown).
