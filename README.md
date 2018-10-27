@@ -5,6 +5,8 @@ OxyMod is a tool to manipulate OxygenOS and do various modifications.
 * OnePlus Call Recorder.
 * HBM (High Brightness Mode).
 * Screen Color Modes: 1. Default | 2. sRGB | 3. Custom | 4. DCI-P3 | 5. Adaptive | 6. Soft
+* VoLTE and VoWiFi.
+* WiFi Channel Bonding.
 * More to come...
 
 ## 🎈 Requirements
