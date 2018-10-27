@@ -21,6 +21,11 @@ OxyMod is a tool to manipulate OxygenOS and do various modifications.
 ```
 
 ## 🎈 Change Log
+### v1.4
+* Added "VoLTE and VoWiFi".
+* Added "WiFi Channel Bonding".
+* Added "Read Notes".
+* Minor fixes and improvements.
 ### v1.3
 * Constant loop to reduce CPU load.
 * Fix issue (OPCall recorder ON/OFF).
