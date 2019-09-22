@@ -1,12 +1,11 @@
 # OxyMod
-OxyMod is a tool to manipulate OxygenOS and do various modifications.
+OxyMod is a tool to manipulate OnePlus's OxygenOS and do various modifications.
 
 ## 🎈 Features
-* OnePlus Call Recorder.
+* Permanent Call Recording Patch.
 * HBM (High Brightness Mode).
 * Screen Color Modes: 1. Default | 2. sRGB | 3. Custom | 4. DCI-P3 | 5. Adaptive | 6. Soft
-* VoLTE and VoWiFi.
-* WiFi Channel Bonding.
+* OptimApps (Apps/Games Optimization)
 * More to come...
 
 ## 🎈 Requirements
@@ -15,7 +14,8 @@ OxyMod is a tool to manipulate OxygenOS and do various modifications.
 * Terminal Emulator app.
 
 ## 🎈 Instructions
-1. Flash 'oxymod-vx.x.zip' by C.recovery/Magisk app > Reboot.
+1. Magisk Manager >> Downloads >> OxyMod >> Reboot.
+~~ (Alternative) Download 'oxymod-vx.x.zip' >> flash from Custom Recovery >> Reboot.
 2. In 'Terminal Emulator' Enter following to run OxyMod console.
 ```console
 ~ $ su
@@ -23,6 +23,17 @@ OxyMod is a tool to manipulate OxygenOS and do various modifications.
 ```
 
 ## 🎈 Change Log
+### v2.0
+* Permanent Call Recording Patch, removed old algorithm.
+* Added OnePlus Screen Recorder app.
+* Removed "VoLTE and VoWiFi" and "WiFi Channel Bonding".
+* Major bug fixes and coding improvements.
+* Magisk 19.x+ compatiblity. 
+### v1.6
+* Fixed issue with SIM settings force close.
+### v1.5
+* Algorithm improvements (OnePlus Call recorder service).
+* Unsupported device detection for (High Brightness Mode).
 ### v1.4
 * Added "VoLTE and VoWiFi".
 * Added "WiFi Channel Bonding".
