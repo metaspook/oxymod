@@ -9,25 +9,7 @@ OxyMod is a tool to manipulate OnePlus's OxygenOS and do various modifications.
 ```| zebra stripes | are neat        |    $1 |
 
 
-```console
-                            
-         /  \ \_/ \_/       
-         \  / / \  |        
-             M O D          
-                            
-Version: 2.0
 
- 1. Call Recording Patch   | ON
- 2. High Brightness Mode   | OFF   
- 3. Screen Color Mode      | Default
- 4. OptimApps
- 5. Read Notes
- 6. Refresh
- 0. Exit
- 
-Enter Option: "
-
-```
 
 ## 🎈 Features
 * Permanent Call Recording Patch.
@@ -89,6 +71,26 @@ Enter Option: "
 * Minor coding improvments.
 ### v1.0
 * Initial Release
+
+```console
+                            
+         /  \ \_/ \_/       
+         \  / / \  |        
+             M O D          
+                            
+Version: 2.0
+
+ 1. Call Recording Patch   | ON
+ 2. High Brightness Mode   | OFF   
+ 3. Screen Color Mode      | Default
+ 4. OptimApps
+ 5. Read Notes
+ 6. Refresh
+ 0. Exit
+ 
+Enter Option: "
+
+```
 
 &nbsp;&nbsp;
 
