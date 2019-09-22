@@ -6,9 +6,7 @@ OxyMod is a tool to manipulate OnePlus's OxygenOS and do various modifications.
 | ```console  
 ~ $ su 
 ~ $ oxy  
-```      
-| some wordy text | $1600 |
-| col 2 is      | centered        |   $12 |
+```
 | zebra stripes | are neat        |    $1 |
 
 ```console
