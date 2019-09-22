@@ -31,12 +31,14 @@ Enter Option: "
 * OptimApps (Apps/Games Optimization)
 * More to come...
 
-## 🎈 Requirements
+| 🎈 Requirements |
+| :---------------|
 * OnePlus devices running OxygenOS.
 * [![Magisk](https://img.shields.io/badge/Magisk-17%2B-00B39B.svg?style=flat-square)](https://forum.xda-developers.com/apps/magisk/official-magisk-v7-universal-systemless-t3473445)
 * Terminal Emulator app.
 
-## 🎈 Instructions
+| 🎈 Instructions |
+| :---------------|
 1. Magisk Manager >> Downloads >> OxyMod >> Reboot.  
 (Alternative) Download 'oxymod-vx.x.zip' >> flash from Custom Recovery >> Reboot.
 2. In 'Terminal Emulator' Enter following to run OxyMod console.
@@ -45,44 +47,44 @@ Enter Option: "
 ~ $ oxy
 ```
 
-## 🎈 Change Log
-### v2.0
+### 🎈 Change Log
+#### v2.0
 * Permanent Call Recording Patch, removed old algorithm.
 * Added OnePlus Screen Recorder app.
 * Removed "VoLTE and VoWiFi" and "WiFi Channel Bonding".
 * Major bug fixes and coding improvements.
 * Magisk 19.x+ compatiblity. 
-### v1.6
+#### v1.6
 * Fixed issue with SIM settings force close.
-### v1.5
+#### v1.5
 * Algorithm improvements (OnePlus Call recorder service).
 * Unsupported device detection for (High Brightness Mode).
-### v1.4
+#### v1.4
 * Added "VoLTE and VoWiFi".
 * Added "WiFi Channel Bonding".
 * Added "Read Notes".
 * Minor fixes and improvements.
-### v1.3
+#### v1.3
 * Constant loop to reduce CPU load.
 * Fix issue (OPCall recorder ON/OFF).
 * Fix issue (loop killing).
 * Fix issue ('service.sh').
 * Coding cleanup.
-### v1.2
+#### v1.2
 * Major bug fixes.
 * Algorithm improvements (OnePlus Call recorder service).
 * Unsupported device restrictions.
 * Boot survival Call recorder service.
 * Boot survival High Brightness Mode.
 * Boot survival Screen Color Mode.
-### v1.1
+#### v1.1
 * Adaptive survival loop for 'OnePlus Call recorder
   service' to prevent killing by system.
 * Added "Refresh" option.
 * Magisk Module Template 17000.
 * Major bug fixes.
 * Minor coding improvments.
-### v1.0
+#### v1.0
 * Initial Release
 
 
