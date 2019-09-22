@@ -1,8 +1,8 @@
 # OxyMod.
-# Version: 1.4
+# Version: 2.0
 # Written by Metaspook
 # License: <http://opensource.org/licenses/MIT>
-# Copyright (c) 2018 Metaspook.
+# Copyright (c) 2019 Metaspook.
 
 #   __                 __   __  
 #  /  \ \_/ \ /  |\/| /  \ |  \ 
@@ -11,13 +11,16 @@
 
 #~~~~ VARIABLES STAGE 01 ~~~~
 export PATH=${PATH}:/system/xbin
-vn=v1.4
-MODDIR=/sbin/.core/img/oxymod
+vn=v2.0
+MODDIR=/data/adb/modules/oxymod
+MODDB=$MODDIR/oxymod.db
 BOOTSCRIPT=$MODDIR/service.sh
 PROPSCRIPT=$MODDIR/system.prop
+HBMFILE=/sys/devices/virtual/graphics/fb0/hbm
 OXY="${0##*/}"
 ON="\e[1;32mON\e[0m"
 OFF="\e[1;31mOFF\e[0m"
+UNSUPPORTED="\e[1;31mUnsupported!\e[0m"
 ADAPTIVE="\e[1;33mAdaptive\e[0m"
 SOFT="\e[1;33mSoft\e[0m"
 DCIP3="\e[1;33mDCI-P3\e[0m"
@@ -37,8 +40,10 @@ alias SetGetGlobalOCR='settings get global op_voice_recording_supported_by_mcc'
 alias SetPutGlobalOCR='settings put global op_voice_recording_supported_by_mcc'
 alias SetGetSystemSCM='settings get system screen_color_mode_settings_value'
 alias SetPutSystemSCM='settings put system screen_color_mode_settings_value'
-alias GetHBM='head -1 /sys/devices/virtual/graphics/fb0/hbm | tail -c 2'
+alias GetHBM="head -1 $HBMFILE | tail -c 2"
+alias PMEnablePhone='pm enable com.android.phone/com.android.phone.oneplus.OPSimSubSettingsActivity &>/dev/null'
 alias wifibondval="find /system -name 'WCNSS_qcom_cfg.ini'"
+
 
 #
 #----< FUNCTIONS >----#
@@ -87,6 +92,14 @@ case $coin00 in
 *) fnrebootreq;;
 esac
 }
+fnhbmval(){
+#Get High Brightness Mode value.
+HBMVAL=$UNSUPPORTED
+[ -f $HBMFILE ] && case $(GetHBM) in
+0|1) HBMVAL=$OFF;;
+2) HBMVAL=$ON;;
+esac
+}
 fnhbm(){
 ## High Brightness Mode.
 VAR=2
@@ -99,48 +112,19 @@ VAR=0;;
 sed -i "/$var1hbm/d" $BOOTSCRIPT
 sed -i "/$var2hbm/d" $BOOTSCRIPT
 echo "$var1hbm\n$var2hbm" >> $BOOTSCRIPT;;
+"$UNSUPPORTED") fnoxyusage0;;
 esac
 echo $VAR > /sys/devices/virtual/graphics/fb0/hbm
 }
-ocrkill(){
-if [ -f $MODDIR/ocrpid ]; then
-kill -9 $(cat $MODDIR/ocrpid) &>/dev/null
-rm -f $MODDIR/ocrpid
-SetPutGlobalOCR 0
-fi
-}
-ocrloop(){
-[ -z $ocrvar ] && ocrvar=0
-case $(SetGetGlobalOCR) in
-0) [ $ocrvar -gt 0 ] && ((ocrvar-=5));;
-1) [ $ocrvar -lt 25 ] && ((ocrvar+=5));;
-esac
-SetPutGlobalOCR 1
-sleep $ocrvar
-export ocrvar
-ocrloop
-}
 fnopcallrec(){
 ## Enabling OnePlus Call recorder.
-case $1 in
-"$ON")
+if [ $# -eq 1 ]; then
 sed -i "/$var1opcallrec/d" $BOOTSCRIPT
 sed -i "/$var2opcallrec/d" $BOOTSCRIPT
-ocrkill;;
-"$OFF")
-sed -i "/$var1opcallrec/d" $BOOTSCRIPT
-sed -i "/$var2opcallrec/d" $BOOTSCRIPT
-echo "$var1opcallrec\n$var2opcallrec" >> $BOOTSCRIPT
-ocrkill
-ocrloop &
-echo $! > $MODDIR/ocrpid
-sleep 0.1;;
-*)
-sleep 25
-ocrkill
-ocrloop &
-echo $! > $MODDIR/ocrpid;;
-esac
+case $1 in "$ON") SetPutGlobalOCR 0;;
+"$OFF") echo "$var1opcallrec\n$var2opcallrec" >> $BOOTSCRIPT
+SetPutGlobalOCR 1;; esac
+else SetPutGlobalOCR 1; fi
 }
 fnscolorval(){
 #Get Screen Color Value.
@@ -172,17 +156,21 @@ SetPutSystemSCM $VAR
 fnnotes(){
 clear; fnbanner
 echo "
- VoLTE and VoWiFi
- ----------------
- Adds VoLTE/VoWiFi feature to device but
- only works with a carrier that support it.
- 
- WiFi Channel Bonding
+ High Brightness Mode
  --------------------
- Theoretically doubles your wireless throughput 
- while router supports channel bonding.
- Useful if a router only support 2.4GHz frequency.
- Unuseful in area of high density WiFi access points.
+ Unlocks high display brightness. May
+ not support on all OnePlus devices 
+ and or OxygenOS versions!
+ 
+ Screen Color Mode
+ -----------------
+ Various display color modes including 
+ hidden color modes.
+
+ OptimApps
+ ---------
+ Performs various cleaning, tweaks and fixes
+ to optimizing the installed Apps and Games.
 
 "
 read -rsn1 "null?   <Press ANY KEY to Main Menu>"
@@ -216,95 +204,26 @@ case $coin00 in
 *) fnoxyusage1;;
 esac
 }
-fnvoenablerval(){
-cat <<EOF
-## Enabling VoLTE and VoWiFi support.
-#Debug Options.
-persist.dbg.ims_volte_enable
-persist.dbg.volte_avail_ovr
-persist.dbg.vt_avail_ovr
-persist.dbg.wfc_avail_ovr
-#Radio Options.
-persist.radio.data_con_rprt
-persist.radio.calls.on.ims
-EOF
-}
-fnvoenablerchk(){
-VOENABLERVAR=$OFF
-var=0
-for X in $(fnvoenablerval | grep -v '#'); do
-	[ "`getprop $X`" -eq 1 ] && ((var++))
-done
-[ $(fnvoenablerval | grep -v '#' | wc -l) -eq $var ] && VOENABLERVAR=$ON
-}
-fnvoenabler(){
-## Enabling VoLTE and VoWiFi support.
-VAR=1
-case $1 in
-"$ON")
-VAR=0
-sed -i "/$var1voenabler/d;/$var2voenabler/d" $BOOTSCRIPT;;
-"$OFF")
-sed -i "/$var1voenabler/d;/$var2voenabler/d" $BOOTSCRIPT
-#sed -i "/$var2voenabler/d" $BOOTSCRIPT
-echo "$var1voenabler\n$var2voenabler" >> $BOOTSCRIPT;;
-esac
-for X in $(fnvoenablerval | grep -v '#'); do
-	resetprop $X $VAR
-done
-}
-fnwifibondchk(){
-WIFIBONDVAR=$OFF
-var=0
-for X in $(wifibondval); do
-[ -f "$MODDIR$X" ] && ((var++))
-done
-[ $(wifibondval | wc -l) -eq $var ] && WIFIBONDVAR=$ON
-}
-fnwifibond(){
-## WiFi Channel Bonding
-case $1 in
-"$ON") 
-fnrebootreq
-if [ "$REREQ" ]; then
-for X in $(wifibondval); do
-rm -f "$MODDIR$X"
-done
-reboot
-fi;;
-"$OFF")
-fnrebootreq
-if [ "$REREQ" ]; then
-for X in $(wifibondval); do
-mkdir -p "$MODDIR${X%/*}"
-cp -fp "$X" "$MODDIR$X"
-sed -i 's/gChannelBondingMode24GHz=0/gChannelBondingMode24GHz=1/g' "$MODDIR$X"
-done
-reboot
-fi;;
-esac
+fnoptimapps(){
+## Apps/Games Optimization
+fnrebootreq; [ "$REREQ" ] && rm -rf /data/*cache /cache && reboot
 }
 fnoxyusage0(){
-CALLRECVAL=$OFF; HBMVAL=$OFF
 #Get Call recorder value.
+CALLRECVAL=$OFF
 [ $(SetGetGlobalOCR) -eq 1 ] && CALLRECVAL=$ON
 #Get High Brightness Mode value.
-[ $(GetHBM) -eq 2 ] && HBMVAL=$ON
+fnhbmval
 #Get Screen Color Value.
 fnscolorval
-#Get VoEnabler Value.
-fnvoenablerchk
-##Get WiFi Channel Bonding value.
-fnwifibondchk
 clear; fnbanner
 echo -n "
- 1. OnePlus Call Recorder  | $CALLRECVAL
+ 1. Call Recording Patch   | $CALLRECVAL
  2. High Brightness Mode   | $HBMVAL     
  3. Screen Color Mode      | $SCOLORVAL
- 4. VoLTE and VoWiFi       | $VOENABLERVAR
- 5. WiFi Channel Bonding   | $WIFIBONDVAR
- 6. Read Notes
- 7. Refresh
+ 4. OptimApps
+ 5. Read Notes
+ 6. Refresh
  0. Exit
  
 Enter Option: "
@@ -313,9 +232,8 @@ case $coin00 in
 1) fnopcallrec $CALLRECVAL; fnoxyusage0;;
 2) fnhbm $HBMVAL; fnoxyusage0;;
 3) fnoxyusage1;;
-4) fnvoenabler $VOENABLERVAR; fnoxyusage0;;
-5) fnwifibond $WIFIBONDVAR;;
-6) fnnotes;;
+4) fnoptimapps; fnoxyusage0;;
+5) fnnotes;;
 0) clear; exit 0;;
 *) fnoxyusage0;;
 esac
@@ -331,17 +249,13 @@ oxy|oxy.sh)
 	allarg="$*"
 	case $1 in
 	opcallrec) fnopcallrec;;
-	dcip3) fndcip3;;
 	hbm) fnhbm;;
-	voenabler) fnvoenabler;;
 	scolor) fnscolor ${allarg#$1 };;
 	*) fnoxyusage0;;
 	esac
 	;;
 opcallrec) fnopcallrec;;
-dcip3) fndcip3;;
 hbm) fnhbm;;
-voenabler) fnvoenabler;;
 scolor) fnscolor ${*};;
 esac
 exit 0

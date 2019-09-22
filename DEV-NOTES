@@ -2,11 +2,24 @@
 # License: <http://opensource.org/licenses/MIT>
 # Copyright (c) 2018 Metaspook.
 
-
+#=====================================#
+# Development notes and code snippets #
+#=====================================#
+#
+# ---------- "Exploring is better than following" --Metaspook
+#
+#>> There is various code snippets wrote down here to re-use for further developments.
+#>> If you are a developer feel free use/port codes from this project but with given 
+#.. proper credit at least. 
+#>> If this project is long gone from development feel free to fork 
+#.. this project and continue further developing by yourself.
+#
+#
+#
 #
 #----< NOTES >----#
 # Using 'Array' or '(command1; command2)' breaks boot-time execution (reason unknown).
-
+#
 #
 #----< USABLES >----#
 # e.g <SetGetGlobal> alias for 'settings' command.
@@ -73,3 +86,69 @@
 # Radio Options
 # persist.radio.data_con_rprt=1
 # persist.radio.calls.on.ims=1
+alias PMEnablePhone='pm enable com.android.phone/com.android.phone.oneplus.OPSimSubSettingsActivity &>/dev/null'
+alias SetPutGlobalOCR='settings put global op_voice_recording_supported_by_mcc'
+ocrkill(){
+if [ -f $MODDIR/ocrpid ]; then
+kill -9 $(cat $MODDIR/ocrpid) &>/dev/null
+rm -f $MODDIR/ocrpid
+SetPutGlobalOCR 0
+fi
+}
+ocrloop(){
+[ -z $ocrvar ] && ocrvar=0
+case $(SetGetGlobalOCR) in
+0) [ $ocrvar -gt 0 ] && ((ocrvar-=5));;
+1) [ $ocrvar -lt 25 ] && ((ocrvar+=5));;
+esac
+SetPutGlobalOCR 1
+PMEnablePhone
+sleep $ocrvar
+export ocrvar
+ocrloop
+}
+fnopcallrec(){
+## Enabling OnePlus Call recorder.
+case $1 in
+"$ON")
+sed -i "/$var1opcallrec/d" $BOOTSCRIPT
+sed -i "/$var2opcallrec/d" $BOOTSCRIPT
+ocrkill;;
+"$OFF")
+sed -i "/$var1opcallrec/d" $BOOTSCRIPT
+sed -i "/$var2opcallrec/d" $BOOTSCRIPT
+echo "$var1opcallrec\n$var2opcallrec" >> $BOOTSCRIPT
+ocrkill
+ocrloop &
+echo $! > $MODDIR/ocrpid
+sleep 0.1;;
+*)
+sleep 25
+ocrkill
+ocrloop &
+echo $! > $MODDIR/ocrpid;;
+esac
+}
+  unzip -oj "$ZIPFILE" module.prop install.sh uninstall.sh 'common/*' -d $TMPDIR >&2
+
+fnvoenablerval(){
+cat <<EOF
+## Enabling VoLTE and VoWiFi support.
+#Debug Options.
+persist.dbg.ims_volte_enable
+persist.dbg.volte_avail_ovr
+persist.dbg.vt_avail_ovr
+persist.dbg.wfc_avail_ovr
+#Radio Options.
+persist.radio.data_con_rprt
+persist.radio.calls.on.ims
+EOF
+}
+  fnvoenablerchk(){
+VOENABLERVAR=$OFF
+var=0
+for X in $(fnvoenablerval | grep -v '#'); do
+	[ "`getprop $X`" -eq 1 ] && ((var++))
+done
+[ $(fnvoenablerval | grep -v '#' | wc -l) -eq $var ] && VOENABLERVAR=$ON
+}
