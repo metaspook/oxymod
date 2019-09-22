@@ -1,8 +1,8 @@
 # OxyMod
 OxyMod is a tool to manipulate OnePlus's OxygenOS and do various modifications.
 
-| Left-Aligned  | Center Aligned  | Right Aligned |
-| :------------ |:---------------:| -----:|
+| Left-Aligned  | Center Aligned  |
+| :------------ |:---------------:|
 | ```console  
 ~ $ su 
 ~ $ oxy  
