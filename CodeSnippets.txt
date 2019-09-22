@@ -1,0 +1,49 @@
+alias PMEnablePhone='pm enable com.android.phone/com.android.phone.oneplus.OPSimSubSettingsActivity &>/dev/null'
+alias SetPutGlobalOCR='settings put global op_voice_recording_supported_by_mcc'
+ocrkill(){
+if [ -f $MODDIR/ocrpid ]; then
+kill -9 $(cat $MODDIR/ocrpid) &>/dev/null
+rm -f $MODDIR/ocrpid
+SetPutGlobalOCR 0
+fi
+}
+ocrloop(){
+[ -z $ocrvar ] && ocrvar=0
+case $(SetGetGlobalOCR) in
+0) [ $ocrvar -gt 0 ] && ((ocrvar-=5));;
+1) [ $ocrvar -lt 25 ] && ((ocrvar+=5));;
+esac
+SetPutGlobalOCR 1
+PMEnablePhone
+sleep $ocrvar
+export ocrvar
+ocrloop
+}
+fnopcallrec(){
+## Enabling OnePlus Call recorder.
+case $1 in
+"$ON")
+sed -i "/$var1opcallrec/d" $BOOTSCRIPT
+sed -i "/$var2opcallrec/d" $BOOTSCRIPT
+ocrkill;;
+"$OFF")
+sed -i "/$var1opcallrec/d" $BOOTSCRIPT
+sed -i "/$var2opcallrec/d" $BOOTSCRIPT
+echo "$var1opcallrec\n$var2opcallrec" >> $BOOTSCRIPT
+ocrkill
+ocrloop &
+echo $! > $MODDIR/ocrpid
+sleep 0.1;;
+*)
+sleep 25
+ocrkill
+ocrloop &
+echo $! > $MODDIR/ocrpid;;
+esac
+}
+fnyt4kval(){
+## Get YouTube 4K support.
+YT4K=$OFF
+GRESVAL=`getprop sys.display-size`
+[ "$GRESVAL" ] && [ ${GRESVAL::4} -ge 3840 -a ${GRESVAL: -4} -ge 2160 ] && YT4K=$ON
+}
