@@ -20,6 +20,17 @@ OxyMod is a tool to manipulate OnePlus's OxygenOS and do various modifications.
 ```console
 ~ $ su
 ~ $ oxy
+
+ 1. Call Recording Patch   | $CALLRECVAL
+ 2. High Brightness Mode   | $HBMVAL     
+ 3. Screen Color Mode      | $SCOLORVAL
+ 4. OptimApps
+ 5. Read Notes
+ 6. Refresh
+ 0. Exit
+ 
+Enter Option: "
+
 ```
 
 ## 🎈 Change Log
