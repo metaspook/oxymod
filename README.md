@@ -21,7 +21,7 @@ OxyMod is a tool to manipulate OnePlus's OxygenOS and do various modifications.
 
 ## 🎈 Instructions
 1. Magisk Manager >> Downloads >> OxyMod >> Reboot.
-~~ (Alternative) Download 'oxymod-vx.x.zip' >> flash from Custom Recovery >> Reboot.
+~~. (Alternative) Download 'oxymod-vx.x.zip' >> flash from Custom Recovery >> Reboot.
 2. In 'Terminal Emulator' Enter following to run OxyMod console.
 ```console
 ~ $ su
