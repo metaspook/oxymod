@@ -2,7 +2,7 @@
 OxyMod is a tool to manipulate OnePlus's OxygenOS and do various modifications.
 
 ### Screenshot:
-![Alt text](/../res/Screenshot_1_50p.jpg?raw=true)
+![Alt text](/../res/Screenshot_1_50p.jpg? =250x250)
 
 ## 🎈 Features
 * Permanent Call Recording Patch.
