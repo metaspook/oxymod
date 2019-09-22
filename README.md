@@ -1,12 +1,6 @@
 # OxyMod
 OxyMod is a tool to manipulate OnePlus's OxygenOS and do various modifications.
 
-### Screenshot:
-![](https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png | width=100)
-![](/../res/Screenshot_3_v2.0.png)
-[[/../res/Screenshot_1_50p.jpg | width=100px | alt=Bridge]]
-<img src="/../res/Screenshot_1_v2.0.png" width="259" height="255" />
-
 ## 🎈 Features
 * Permanent Call Recording Patch.
 * HBM (High Brightness Mode).
@@ -21,7 +15,7 @@ OxyMod is a tool to manipulate OnePlus's OxygenOS and do various modifications.
 
 ## 🎈 Instructions
 1. Magisk Manager >> Downloads >> OxyMod >> Reboot.
-~~. (Alternative) Download 'oxymod-vx.x.zip' >> flash from Custom Recovery >> Reboot.
+.~~ (Alternative) Download 'oxymod-vx.x.zip' >> flash from Custom Recovery >> Reboot.
 2. In 'Terminal Emulator' Enter following to run OxyMod console.
 ```console
 ~ $ su
