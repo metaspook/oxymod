@@ -3,7 +3,7 @@ OxyMod is a tool to manipulate OnePlus's OxygenOS and do various modifications.
 
 ### Screenshot:
 ![](https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png | width=100)
-![](/../res/Screenshot_1_50p.jpg&s=200)
+![](/../res/Screenshot_1_v2.0.png)
 [[/../res/Screenshot_1_50p.jpg | width=100px | alt=Bridge]]
 <img src="/../res/Screenshot_1_50p.jpg" width="200" height="400" />
 
