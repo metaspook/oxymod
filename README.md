@@ -1,7 +1,7 @@
 # OxyMod
-OxyMod is a tool to manipulate OnePlus's OxygenOS and do various modifications.
+OxyMod tool does various modifications of OnePlus's OxygenOS.
 
-| 🎈 OxyMod Console |
+| 🕹️ OxyMod Console |
 | :-----------------|
 ```console
                             
