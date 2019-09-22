@@ -36,8 +36,8 @@ Enter Option: "
 * Terminal Emulator app.
 
 ## 🎈 Instructions
-1. Magisk Manager >> Downloads >> OxyMod >> Reboot.
-~~ (Alternative) Download 'oxymod-vx.x.zip' >> flash from Custom Recovery >> Reboot.
+1. Magisk Manager >> Downloads >> OxyMod >> Reboot.  
+(Alternative) Download 'oxymod-vx.x.zip' >> flash from Custom Recovery >> Reboot.
 2. In 'Terminal Emulator' Enter following to run OxyMod console.
 ```console
 ~ $ su
