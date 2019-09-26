@@ -132,11 +132,14 @@ print_modname() {
 # Copy/extract your module files into $MODPATH in on_install.
 
 on_install() {
+  # Checking if OnePlus device running OxygenOS.
+  [ "`getprop | grep -iE 'oneplus|oxygen'`" ] || abort "[FAIL!] Device and OS not supported."
+  ui_print "[OK] OnePlus device running OxygenOS."
   # The following is the default implementation: extract $ZIPFILE/system to $MODPATH
   # Extend/change the logic to whatever you want
-  ui_print "[OK] Extracting module files"
+  ui_print "[OK] Extracting module files."
   unzip -o "$ZIPFILE" 'system/*' -d $MODPATH >&2
-  ui_print "[OK] Pre-Activating features"
+  ui_print "[OK] Pre-Activating features."
   PrivApp=/system/priv-app; TS=TeleService
   mkdir -p ${MODPATH}$PrivApp
   cp -af $PrivApp/$TS ${MODPATH}$PrivApp
